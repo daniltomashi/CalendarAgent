@@ -11,7 +11,7 @@ if __name__ == "__main__":
     # # based on the prompt generate conditions to search events in Google Calendar
     # conditions = answer(prompt)
     # for test we are using predefined conditions
-    conditions = {"date": "2025-02-27"}
+    conditions = {"start_date": "2025-02-27"}
 
     # initialize object for Google Calendar class
     google_calendar_search = GoogleCalendarSearch(**conditions)

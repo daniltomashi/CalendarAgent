@@ -40,12 +40,13 @@ class GoogleCalendarSearch:
         self.creds = get_credentials()
         self.kwargs = kwargs
 
-    def find_by_date(self, date):
+    def find_by_date(self, start_date, finish_date):
         events_result = (
             self.service.events()
             .list(
                 calendarId="primary",
-                timeMin=date,
+                timeMin=start_date,
+                timeMax=finish_date,
                 singleEvents=True,
                 orderBy="startTime",
             )
@@ -54,6 +55,9 @@ class GoogleCalendarSearch:
         events = events_result.get("items", [])
 
         return events
+    
+    def take_all_meetings(self):
+        pass
 
     def find_by_attendance(self):
         pass
@@ -64,9 +68,13 @@ class GoogleCalendarSearch:
     def find_many_events(self):
         self.service = build("calendar", "v3", credentials=self.creds)
 
-        if "date" in self.kwargs:
-            date = datetime.datetime.strptime(self.kwargs["date"], "%Y-%m-%d").isoformat() + "Z"
-            events = self.find_by_date(date)
+        if "start_date" in self.kwargs:
+            start_date = datetime.datetime.strptime(self.kwargs["start_date"], "%Y-%m-%d")
+            finish_date = datetime.datetime.strptime(self.kwargs["finish_date"], "%Y-%m-%d") if "finish_date" in self.kwargs else\
+                                                                                                start_date + datetime.timedelta(days=1)
+            start_date, finish_date = start_date.isoformat() + "Z", finish_date.isoformat() + "Z"
+
+            events = self.find_by_date(start_date, finish_date)
 
         return events
 

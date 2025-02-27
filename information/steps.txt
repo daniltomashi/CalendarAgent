@@ -12,7 +12,8 @@ Actual steps:
              that due to family circumstances we should change it"
     2. Based on prompt we should create structured output with next field (not all of them should be filled)
             Fields (use Pydentic for it):
-                - date
+                - start_date
+                - finish_date
                 - person (we have meeting with)
                 - change_to (change to another date or time)
                 - description (left the same or change it)
