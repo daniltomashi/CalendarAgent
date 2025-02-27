@@ -1,0 +1,21 @@
+Done:
+    - Get access to API
+
+In progress:
+    1. Find event with specific conditions
+    2. Understand how relevant this event (how accurate in terms of probability does this event with this conditions has)
+    3. If probability >= threshold, then procced
+
+Actual steps:
+    1. Give prompt for LLM. Example:
+            "If I have today any meetings, then change it to the nearest available time tomorrow after 12:00 and up to 19:00. Also in description write down
+             that due to family circumstances we should change it"
+    2. Based on prompt we should create structured output with next field (not all of them should be filled)
+            Fields (use Pydentic for it):
+                - date
+                - person (we have meeting with)
+                - change_to (change to another date or time)
+                - description (left the same or change it)
+
+Bigger idea:
+    - train my own model, instead of using API
